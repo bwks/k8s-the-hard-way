@@ -18,12 +18,15 @@ K8S_VERSION="v1.32.3";
 # compdef kubectl k
 
 ### Setup ###
+echo "### Setup ###";
 
 # Ensure directories exist
 mkdir -p {bins,certs,configs,ssh,units}
 mkdir -p bins/{client,cni-plugins,controller,worker}
 
 ### SSH Config ###
+echo "### SSH Config ###";
+
 rm -f certs/k8s_ssh_key*
 
 ssh-keygen -t ed25519 -f certs/k8s_ssh_key -N "" -q -C "kubernetes"
@@ -41,6 +44,7 @@ Host *
 EOF
 
 ### Binaries ###
+echo "### Binaries ###";
 
 # Download Binaries (only using plain URLs)
 binaries=(
@@ -80,6 +84,7 @@ rm bins/*.tar.gz;
 rm bins/*.tgz;
 
 ### Certificates ###
+echo "### Certificates ###";
 
 openssl genrsa -out certs/ca.key 4096
 openssl req -x509 -new -sha512 -noenc \
@@ -114,6 +119,8 @@ for i in ${certs[*]}; do
 done
 
 ### Configs ###
+echo "### Configs ###";
+
 # Worker Nodes
 for host in wrk01 wrk02 wrk03; do
   kubectl config set-cluster kubernetes-the-hard-way \
@@ -220,3 +227,9 @@ kubectl config set-context default \
 
 kubectl config use-context default \
   --kubeconfig=configs/admin.kubeconfig
+
+"### Data Encryption ###"
+echo "### Data Encryption ###";
+
+export ENCRYPTION_KEY=$(head -c 32 /dev/urandom | base64);
+sed -i "s|^\([[:space:]]*\)secret:.*|\1secret: $ENCRYPTION_KEY|" configs/encryption-config.yaml;
