@@ -1,0 +1,11 @@
+# Ignore everything inside files/
+files/**
+
+# Re-include the certs folder so we can explicitly control its contents
+!files/certs/
+
+# Ignore everything inside certs/
+files/certs/**
+
+# Allow only ca.conf inside certs/
+!files/certs/ca.conf
