@@ -1,0 +1,11 @@
+[Unit]
+Description=Initialize kubernetes environment and enable service
+RequiresMountsFor=/media/container
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/bash -c 'cp /media/container/kube-apiserver /media/container/kube-controller-manager /media/container/kube-scheduler /media/container/kubectl /opt/bin/ && chmod -R a+x /opt/bin'
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target

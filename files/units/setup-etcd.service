@@ -1,0 +1,13 @@
+[Unit]
+Description=Initialize etcd environment and enable service
+RequiresMountsFor=/media/container
+
+[Service]
+Type=oneshot
+ExecStartPre=/usr/bin/mkdir -p /opt/bin/ /etc/etcd /var/lib/etcd
+ExecStartPre=/usr/bin/chmod 700 /var/lib/etcd
+ExecStart=/usr/bin/bash -c 'cp /media/container/etcd /media/container/etcdctl /opt/bin/ && chmod -R a+x /opt/bin/'
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target

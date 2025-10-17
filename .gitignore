@@ -4,19 +4,11 @@ files/**
 # Re-include the certs folder so we can explicitly control its contents
 !files/certs/
 !files/configs/
+!files/units/
 
 # Ignore everything inside certs/
 files/certs/**
-files/configs/**
 
 # Allow only ca.conf inside certs/
 !files/certs/ca.conf
 
-# Allow base files
-!files/configs/10-bridge.conf
-!files/configs/99-loopback.conf
-!files/configs/encryption-config.yaml
-!files/configs/kube-apiserver-to-kubelet.yaml
-!files/configs/kubelet-config.yaml
-!files/configs/kube-proxy-config.yaml
-!files/configs/kube-scheduler.yaml
