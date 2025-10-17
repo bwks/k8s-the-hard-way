@@ -4,10 +4,18 @@ RequiresMountsFor=/media/container
 
 [Service]
 Type=oneshot
+RemainAfterExit=true
+
+# Create required directories
 ExecStartPre=/usr/bin/mkdir -p /opt/bin/ /etc/etcd /var/lib/etcd
 ExecStartPre=/usr/bin/chmod 700 /var/lib/etcd
-ExecStart=/usr/bin/bash -c 'cp /media/container/etcd /media/container/etcdctl /opt/bin/ && chmod -R a+x /opt/bin/'
-RemainAfterExit=true
+
+# Setup binaries
+ExecStartPre=/usr/bin/bash -c 'cp /media/container/etcd /media/container/etcdctl /opt/bin/'
+ExecStartPre=/usr/bin/bash -c 'chmod -R a+x /opt/bin/'
+
+# Dummy ExecStart that exits immediately (required for Type=oneshot)
+ExecStart=/usr/bin/true
 
 [Install]
 WantedBy=multi-user.target

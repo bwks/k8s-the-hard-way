@@ -6,9 +6,9 @@ name = "ubiquitous-dory"
 # cpu_count = 2
 # memory = 4096
 # files = [
-#   { source = "files/ssh/k8s_ssh_key", destination = "/home/sherpa/.ssh/k8s_ssh_key", user = "sherpa", group = "sherpa", permissions = 400 },
-#   { source = "files/ssh/k8s_ssh_key.pub", destination = "/home/sherpa/.ssh/k8s_ssh_key.pub", user = "sherpa", group = "sherpa", permissions = 400 },
-#   { source = "files/ssh/k8s_ssh_config", destination = "/home/sherpa/.ssh/config", user = "sherpa", group = "sherpa", permissions = 400 },
+#   { source = "files/ssh/k8s_ssh_key", destination = "/home/sherpa/.ssh/k8s_ssh_key", user = "sherpa", group = "sherpa", permissions = 444 },
+#   { source = "files/ssh/k8s_ssh_key.pub", destination = "/home/sherpa/.ssh/k8s_ssh_key.pub", user = "sherpa", group = "sherpa", permissions = 444 },
+#   { source = "files/ssh/k8s_ssh_config", destination = "/home/sherpa/.ssh/config", user = "sherpa", group = "sherpa", permissions = 444 },
 # ]
 
 [[devices]]
@@ -18,46 +18,41 @@ cpu_count = 2
 memory = 4096
 
 text_files = [
-  { source = "files/certs/ca.key", destination = "/var/lib/kubernetes/ca.key", user = "root", group = "root", permissions = 400 },
-  { source = "files/certs/ca.crt", destination = "/var/lib/kubernetes/ca.crt", user = "root", group = "root", permissions = 400 },
-  { source = "files/certs/ca.crt", destination = "/etc/etcd/ca.crt", user = "root", group = "root", permissions = 400 },
-  { source = "files/certs/ca.crt", destination = "/home/sherpa/ca.crt", user = "sherpa", group = "sherpa", permissions = 400 },
+  { source = "files/certs/ca.key", destination = "/var/lib/kubernetes/ca.key", user = "root", group = "root", permissions = 444 },
+  { source = "files/certs/ca.crt", destination = "/var/lib/kubernetes/ca.crt", user = "root", group = "root", permissions = 444 },
+  { source = "files/certs/ca.crt", destination = "/etc/etcd/ca.crt", user = "root", group = "root", permissions = 444 },
+  { source = "files/certs/ca.crt", destination = "/home/sherpa/ca.crt", user = "sherpa", group = "sherpa", permissions = 444 },
   { source = "files/certs/kube-api-server.key", destination = "/var/lib/kubernetes/kube-api-server.key", user = "root", group = "root", permissions = 400 },
-  { source = "files/certs/kube-api-server.crt", destination = "/var/lib/kubernetes/kube-api-server.crt", user = "root", group = "root", permissions = 400 },
+  { source = "files/certs/kube-api-server.crt", destination = "/var/lib/kubernetes/kube-api-server.crt", user = "root", group = "root", permissions = 444 },
   { source = "files/certs/service-accounts.key", destination = "/var/lib/kubernetes/service-accounts.key", user = "root", group = "root", permissions = 400 },
-  { source = "files/certs/service-accounts.crt", destination = "/var/lib/kubernetes/service-accounts.crt", user = "root", group = "root", permissions = 400 },
+  { source = "files/certs/service-accounts.crt", destination = "/var/lib/kubernetes/service-accounts.crt", user = "root", group = "root", permissions = 444 },
   { source = "files/certs/kube-api-server.key", destination = "/etc/etcd/kube-api-server.key", user = "root", group = "root", permissions = 400 },
-  { source = "files/certs/kube-api-server.crt", destination = "/etc/etcd/kube-api-server.crt", user = "root", group = "root", permissions = 400 },
-
-  { source = "files/configs/kube-controller-manager.kubeconfig", destination = "/var/lib/kubernetes/kube-controller-manager.kubeconfig", user = "sherpa", group = "sherpa", permissions = 400 },
-  { source = "files/configs/kube-scheduler.kubeconfig", destination = "/var/lib/kubernetes/kube-scheduler.kubeconfig", user = "sherpa", group = "sherpa", permissions = 400 },
-  { source = "files/configs/kube-scheduler.yaml", destination = "/etc/kubernetes/config/kube-scheduler.yaml", user = "sherpa", group = "sherpa", permissions = 400 },
-  { source = "files/configs/encryption-config.yaml", destination = "/var/lib/kubernetes/encryption-config.yaml", user = "root", group = "root", permissions = 400 },
-
-  { source = "files/certs/ctl01.crt", destination = "/home/sherpa/ctl01.crt", user = "sherpa", group = "sherpa", permissions = 400 },
-  { source = "files/certs/ctl01.csr", destination = "/home/sherpa/ctl01.csr", user = "sherpa", group = "sherpa", permissions = 400 },
-  { source = "files/certs/ctl01.key", destination = "/home/sherpa/ctl01.key", user = "sherpa", group = "sherpa", permissions = 400 },
-  { source = "files/certs/service-accounts.key", destination = "/home/sherpa/service-accounts.key", user = "sherpa", group = "sherpa", permissions = 400 },
-
-  { source = "files/configs/admin.kubeconfig", destination = "/home/sherpa/admin.kubeconfig", user = "sherpa", group = "sherpa", permissions = 400 },
-  { source = "files/configs/kube-apiserver-to-kubelet.yaml", destination = "/home/sherpa/kube-apiserver-to-kubelet.yaml", user = "sherpa", group = "sherpa", permissions = 400 },
+  { source = "files/certs/kube-api-server.crt", destination = "/etc/etcd/kube-api-server.crt", user = "root", group = "root", permissions = 444 },
+  { source = "files/configs/kube-controller-manager.kubeconfig", destination = "/var/lib/kubernetes/kube-controller-manager.kubeconfig", user = "sherpa", group = "sherpa", permissions = 444 },
+  { source = "files/configs/kube-scheduler.kubeconfig", destination = "/var/lib/kubernetes/kube-scheduler.kubeconfig", user = "sherpa", group = "sherpa", permissions = 444 },
+  { source = "files/configs/kube-scheduler.yaml", destination = "/etc/kubernetes/config/kube-scheduler.yaml", user = "sherpa", group = "sherpa", permissions = 444 },
+  { source = "files/configs/encryption-config.yaml", destination = "/var/lib/kubernetes/encryption-config.yaml", user = "root", group = "root", permissions = 444 },
+  { source = "files/certs/ctl01.crt", destination = "/home/sherpa/ctl01.crt", user = "sherpa", group = "sherpa", permissions = 444 },
+  { source = "files/certs/ctl01.csr", destination = "/home/sherpa/ctl01.csr", user = "sherpa", group = "sherpa", permissions = 444 },
+  { source = "files/certs/ctl01.key", destination = "/home/sherpa/ctl01.key", user = "sherpa", group = "sherpa", permissions = 444 },
+  { source = "files/certs/service-accounts.key", destination = "/home/sherpa/service-accounts.key", user = "sherpa", group = "sherpa", permissions = 444 },
+  { source = "files/configs/admin.kubeconfig", destination = "/home/sherpa/admin.kubeconfig", user = "sherpa", group = "sherpa", permissions = 444 },
+  { source = "files/configs/kube-apiserver-to-kubelet.yaml", destination = "/home/sherpa/kube-apiserver-to-kubelet.yaml", user = "sherpa", group = "sherpa", permissions = 444 },
 
 ]
 
 binary_files = [
     { source = "files/bins/client/etcdctl" },
+    { source = "files/bins/client/kubectl" },
     { source = "files/bins/controller/etcd" },
-
     { source = "files/bins/controller/kube-apiserver" },
     { source = "files/bins/controller/kube-controller-manager" },
     { source = "files/bins/controller/kube-scheduler" },
-    { source = "files/bins/client/kubectl" },
 ]
 
 systemd_units =[
     { name = "setup-etcd.service", source = "files/units/setup-etcd.service", enabled = true },
     { name = "etcd.service", source = "files/units/etcd.service", enabled = true },
-
     { name = "setup-kubernetes.service", source = "files/units/setup-kubernetes.service", enabled = true },
     { name = "kube-apiserver.service", source = "files/units/kube-apiserver.service", enabled = true },
     { name = "kube-controller-manager.service", source = "files/units/kube-controller-manager.service", enabled = true },
@@ -65,68 +60,170 @@ systemd_units =[
 ]
 ssh_authorized_key_files = [{ source = "files/ssh/k8s_ssh_key.pub" }]
 
-# [[devices]]
-# name = "wrk01"
-# model = "flatcar_linux"
-# cpu_count = 2
-# memory = 4096
-# ssh_authorized_key_files = [{ source = "files/ssh/k8s_ssh_key.pub" }]
-# files = [
-#   { source = "files/certs/wrk01.crt", destination = "/home/sherpa/wrk01.crt", user = "sherpa", group = "sherpa", permissions = 400 },
-#   { source = "files/certs/wrk01.csr", destination = "/home/sherpa/wrk01.csr", user = "sherpa", group = "sherpa", permissions = 400 },
-#   { source = "files/certs/wrk01.key", destination = "/home/sherpa/wrk01.key", user = "sherpa", group = "sherpa", permissions = 400 },
-#   { source = "files/certs/ca.crt", destination = "/var/lib/kubelet/ca.crt", user = "root", group = "root", permissions = 400 },
-#   { source = "files/certs/wrk01.crt", destination = "/var/lib/kubelet/kubelet.crt", user = "root", group = "root", permissions = 400 },
-#   { source = "files/certs/wrk01.key", destination = "/var/lib/kubelet/kubelet.key", user = "root", group = "root", permissions = 400 },
-#   { source = "files/configs/kube-proxy.kubeconfig", destination = "/var/lib/kube-proxy/kubeconfig", user = "root", group = "root", permissions = 400 },
-#   { source = "files/configs/wrk01.kubeconfig", destination = "/var/lib/kubelet/kubeconfig", user = "root", group = "root", permissions = 400 },
-# ]
-# binary_files = [
-#     { source = "files/units/kubelet.service", destination = "/home/sherpa/encryption-config.yaml", user = "sherpa", group = "sherpa", permissions = 400 },
-#     { source = "files/units/kube-proxy.service", destination = "/home/sherpa/encryption-config.yaml", user = "sherpa", group = "sherpa", permissions = 400 },
-# ]
+[[devices]]
+name = "wrk01"
+model = "flatcar_linux"
+cpu_count = 2
+memory = 4096
+ssh_authorized_key_files = [{ source = "files/ssh/k8s_ssh_key.pub" }]
+text_files = [
+  { source = "files/certs/wrk01.crt", destination = "/home/sherpa/wrk01.crt", user = "sherpa", group = "sherpa", permissions = 444 },
+  { source = "files/certs/wrk01.csr", destination = "/home/sherpa/wrk01.csr", user = "sherpa", group = "sherpa", permissions = 444 },
+  { source = "files/certs/wrk01.key", destination = "/home/sherpa/wrk01.key", user = "sherpa", group = "sherpa", permissions = 400 },
+  { source = "files/certs/ca.crt", destination = "/var/lib/kubelet/ca.crt", user = "root", group = "root", permissions = 444 },
+  { source = "files/certs/wrk01.crt", destination = "/var/lib/kubelet/kubelet.crt", user = "root", group = "root", permissions = 444 },
+  { source = "files/certs/wrk01.key", destination = "/var/lib/kubelet/kubelet.key", user = "root", group = "root", permissions = 400 },
+  { source = "files/configs/kube-proxy.kubeconfig", destination = "/var/lib/kube-proxy/kubeconfig", user = "root", group = "root", permissions = 444 },
+  { source = "files/configs/wrk01.kubeconfig", destination = "/var/lib/kubelet/kubeconfig", user = "root", group = "root", permissions = 444 },
 
-# [[devices]]
-# name = "wrk02"
-# model = "flatcar_linux"
-# cpu_count = 2
-# memory = 4096
-# ssh_authorized_key_files = [{ source = "files/ssh/k8s_ssh_key.pub" }]
-# files = [
-#   { source = "files/certs/wrk02.crt", destination = "/home/sherpa/wrk02.crt", user = "sherpa", group = "sherpa", permissions = 400 },
-#   { source = "files/certs/wrk02.csr", destination = "/home/sherpa/wrk02.csr", user = "sherpa", group = "sherpa", permissions = 400 },
-#   { source = "files/certs/wrk02.key", destination = "/home/sherpa/wrk02.key", user = "sherpa", group = "sherpa", permissions = 400 },
-#   { source = "files/certs/ca.crt", destination = "/var/lib/kubelet/ca.crt", user = "root", group = "root", permissions = 400 },
-#   { source = "files/certs/wrk02.crt", destination = "/var/lib/kubelet/kubelet.crt", user = "root", group = "root", permissions = 400 },
-#   { source = "files/certs/wrk02.key", destination = "/var/lib/kubelet/kubelet.key", user = "root", group = "root", permissions = 400 },
-#   { source = "files/configs/kube-proxy.kubeconfig", destination = "/var/lib/kube-proxy/kubeconfig", user = "root", group = "root", permissions = 400 },
-#   { source = "files/configs/wrk02.kubeconfig", destination = "/var/lib/kubelet/kubeconfig", user = "root", group = "root", permissions = 400 },
-# ]
-# binary_files = [
-#     { source = "files/units/kubelet.service", destination = "/home/sherpa/encryption-config.yaml", user = "sherpa", group = "sherpa", permissions = 400 },
-#     { source = "files/units/kube-proxy.service", destination = "/home/sherpa/encryption-config.yaml", user = "sherpa", group = "sherpa", permissions = 400 },
-# ]
-# [[devices]]
-# name = "wrk03"
-# model = "flatcar_linux"
-# cpu_count = 2
-# memory = 4096
-# ssh_authorized_key_files = [{ source = "files/ssh/k8s_ssh_key.pub" }]
-# files = [
-#   { source = "files/certs/wrk03.crt", destination = "/home/sherpa/wrk03.crt", user = "sherpa", group = "sherpa", permissions = 400 },
-#   { source = "files/certs/wrk03.csr", destination = "/home/sherpa/wrk03.csr", user = "sherpa", group = "sherpa", permissions = 400 },
-#   { source = "files/certs/wrk03.key", destination = "/home/sherpa/wrk03.key", user = "sherpa", group = "sherpa", permissions = 400 },
-#   { source = "files/certs/ca.crt", destination = "/var/lib/kubelet/ca.crt", user = "root", group = "root", permissions = 400 },
-#   { source = "files/certs/wrk03.crt", destination = "/var/lib/kubelet/kubelet.crt", user = "root", group = "root", permissions = 400 },
-#   { source = "files/certs/wrk03.key", destination = "/var/lib/kubelet/kubelet.key", user = "root", group = "root", permissions = 400 },
-#   { source = "files/configs/kube-proxy.kubeconfig", destination = "/var/lib/kube-proxy/kubeconfig", user = "root", group = "root", permissions = 400 },
-#   { source = "files/configs/wrk03.kubeconfig", destination = "/var/lib/kubelet/kubeconfig", user = "root", group = "root", permissions = 400 },
-# ]
-# binary_files = [
-#     { source = "files/units/kubelet.service", destination = "/home/sherpa/encryption-config.yaml", user = "sherpa", group = "sherpa", permissions = 400 },
-#     { source = "files/units/kube-proxy.service", destination = "/home/sherpa/encryption-config.yaml", user = "sherpa", group = "sherpa", permissions = 400 },
-# ]
+  { source = "files/configs/10-bridge-wrk01.conf", destination = "/etc/cni/net.d/10-bridge.conf", user = "root", group = "root", permissions = 444 },
+  { source = "files/configs/99-loopback.conf", destination = "/etc/cni/net.d/99-loopback.conf", user = "root", group = "root", permissions = 444 },
+  { source = "files/configs/kubelet-config.yaml", destination = "/var/lib/kubelet/kubelet-config.yaml", user = "root", group = "root", permissions = 444 },
 
-# links = [
-#   # { dev_a = "dev01", int_a = 1, dev_b = "dev02", int_b = 1 },
-# ]
+  ]
+binary_files = [
+
+    { source = "files/bins/worker/crictl" },
+    { source = "files/bins/worker/kube-proxy" },
+    { source = "files/bins/worker/kubelet" },
+    { source = "files/bins/client/kubectl" },
+
+    { source = "files/bins/cni-plugins/bandwidth" },
+    { source = "files/bins/cni-plugins/bridge" },
+    { source = "files/bins/cni-plugins/dhcp" },
+    { source = "files/bins/cni-plugins/dummy" },
+    { source = "files/bins/cni-plugins/firewall" },
+    { source = "files/bins/cni-plugins/host-device" },
+    { source = "files/bins/cni-plugins/host-local" },
+    { source = "files/bins/cni-plugins/ipvlan" },
+    { source = "files/bins/cni-plugins/loopback" },
+    { source = "files/bins/cni-plugins/macvlan" },
+    { source = "files/bins/cni-plugins/portmap" },
+    { source = "files/bins/cni-plugins/ptp" },
+    { source = "files/bins/cni-plugins/sbr" },
+    { source = "files/bins/cni-plugins/static" },
+    { source = "files/bins/cni-plugins/tap" },
+    { source = "files/bins/cni-plugins/tuning" },
+    { source = "files/bins/cni-plugins/vlan" },
+    { source = "files/bins/cni-plugins/vrf" },
+
+]
+
+systemd_units =[
+    { name = "setup-worker.service", source = "files/units/setup-worker.service", enabled = true },
+    { name = "kubelet.service", source = "files/units/kubelet.service", enabled = true },
+    { name = "kube-proxy.service", source = "files/units/kube-proxy.service", enabled = true },
+]
+
+[[devices]]
+name = "wrk02"
+model = "flatcar_linux"
+cpu_count = 2
+memory = 4096
+ssh_authorized_key_files = [{ source = "files/ssh/k8s_ssh_key.pub" }]
+text_files = [
+  { source = "files/certs/wrk02.crt", destination = "/home/sherpa/wrk02.crt", user = "sherpa", group = "sherpa", permissions = 444 },
+  { source = "files/certs/wrk02.csr", destination = "/home/sherpa/wrk02.csr", user = "sherpa", group = "sherpa", permissions = 444 },
+  { source = "files/certs/wrk02.key", destination = "/home/sherpa/wrk02.key", user = "sherpa", group = "sherpa", permissions = 400 },
+  { source = "files/certs/ca.crt", destination = "/var/lib/kubelet/ca.crt", user = "root", group = "root", permissions = 444 },
+  { source = "files/certs/wrk02.crt", destination = "/var/lib/kubelet/kubelet.crt", user = "root", group = "root", permissions = 444 },
+  { source = "files/certs/wrk02.key", destination = "/var/lib/kubelet/kubelet.key", user = "root", group = "root", permissions = 400 },
+  { source = "files/configs/kube-proxy.kubeconfig", destination = "/var/lib/kube-proxy/kubeconfig", user = "root", group = "root", permissions = 444 },
+  { source = "files/configs/wrk02.kubeconfig", destination = "/var/lib/kubelet/kubeconfig", user = "root", group = "root", permissions = 444 },
+
+  { source = "files/configs/10-bridge-wrk02.conf", destination = "/etc/cni/net.d/10-bridge.conf", user = "root", group = "root", permissions = 444 },
+  { source = "files/configs/99-loopback.conf", destination = "/etc/cni/net.d/99-loopback.conf", user = "root", group = "root", permissions = 444 },
+  { source = "files/configs/kubelet-config.yaml", destination = "/var/lib/kubelet/kubelet-config.yaml", user = "root", group = "root", permissions = 444 },
+
+]
+binary_files = [
+
+    { source = "files/bins/worker/crictl" },
+    { source = "files/bins/worker/kube-proxy" },
+    { source = "files/bins/worker/kubelet" },
+    { source = "files/bins/client/kubectl" },
+
+    { source = "files/bins/cni-plugins/bandwidth" },
+    { source = "files/bins/cni-plugins/bridge" },
+    { source = "files/bins/cni-plugins/dhcp" },
+    { source = "files/bins/cni-plugins/dummy" },
+    { source = "files/bins/cni-plugins/firewall" },
+    { source = "files/bins/cni-plugins/host-device" },
+    { source = "files/bins/cni-plugins/host-local" },
+    { source = "files/bins/cni-plugins/ipvlan" },
+    { source = "files/bins/cni-plugins/loopback" },
+    { source = "files/bins/cni-plugins/macvlan" },
+    { source = "files/bins/cni-plugins/portmap" },
+    { source = "files/bins/cni-plugins/ptp" },
+    { source = "files/bins/cni-plugins/sbr" },
+    { source = "files/bins/cni-plugins/static" },
+    { source = "files/bins/cni-plugins/tap" },
+    { source = "files/bins/cni-plugins/tuning" },
+    { source = "files/bins/cni-plugins/vlan" },
+    { source = "files/bins/cni-plugins/vrf" },
+
+]
+systemd_units =[
+    { name = "setup-worker.service", source = "files/units/setup-worker.service", enabled = true },
+    { name = "kubelet.service", source = "files/units/kubelet.service", enabled = true },
+    { name = "kube-proxy.service", source = "files/units/kube-proxy.service", enabled = true },
+]
+
+[[devices]]
+name = "wrk03"
+model = "flatcar_linux"
+cpu_count = 2
+memory = 4096
+ssh_authorized_key_files = [{ source = "files/ssh/k8s_ssh_key.pub" }]
+text_files = [
+  { source = "files/certs/wrk03.crt", destination = "/home/sherpa/wrk03.crt", user = "sherpa", group = "sherpa", permissions = 444 },
+  { source = "files/certs/wrk03.csr", destination = "/home/sherpa/wrk03.csr", user = "sherpa", group = "sherpa", permissions = 444 },
+  { source = "files/certs/wrk03.key", destination = "/home/sherpa/wrk03.key", user = "sherpa", group = "sherpa", permissions = 400 },
+  { source = "files/certs/ca.crt", destination = "/var/lib/kubelet/ca.crt", user = "root", group = "root", permissions = 444 },
+  { source = "files/certs/wrk03.crt", destination = "/var/lib/kubelet/kubelet.crt", user = "root", group = "root", permissions = 444 },
+  { source = "files/certs/wrk03.key", destination = "/var/lib/kubelet/kubelet.key", user = "root", group = "root", permissions = 400 },
+  { source = "files/configs/kube-proxy.kubeconfig", destination = "/var/lib/kube-proxy/kubeconfig", user = "root", group = "root", permissions = 444 },
+  { source = "files/configs/wrk03.kubeconfig", destination = "/var/lib/kubelet/kubeconfig", user = "root", group = "root", permissions = 444 },
+
+  { source = "files/configs/10-bridge-wrk03.conf", destination = "/etc/cni/net.d/10-bridge.conf", user = "root", group = "root", permissions = 444 },
+  { source = "files/configs/99-loopback.conf", destination = "/etc/cni/net.d/99-loopback.conf", user = "root", group = "root", permissions = 444 },
+  { source = "files/configs/kubelet-config.yaml", destination = "/var/lib/kubelet/kubelet-config.yaml", user = "root", group = "root", permissions = 444 },
+
+]
+binary_files = [
+
+    { source = "files/bins/worker/crictl" },
+    { source = "files/bins/worker/kube-proxy" },
+    { source = "files/bins/worker/kubelet" },
+    { source = "files/bins/client/kubectl" },
+
+    { source = "files/bins/cni-plugins/bandwidth" },
+    { source = "files/bins/cni-plugins/bridge" },
+    { source = "files/bins/cni-plugins/dhcp" },
+    { source = "files/bins/cni-plugins/dummy" },
+    { source = "files/bins/cni-plugins/firewall" },
+    { source = "files/bins/cni-plugins/host-device" },
+    { source = "files/bins/cni-plugins/host-local" },
+    { source = "files/bins/cni-plugins/ipvlan" },
+    { source = "files/bins/cni-plugins/loopback" },
+    { source = "files/bins/cni-plugins/macvlan" },
+    { source = "files/bins/cni-plugins/portmap" },
+    { source = "files/bins/cni-plugins/ptp" },
+    { source = "files/bins/cni-plugins/sbr" },
+    { source = "files/bins/cni-plugins/static" },
+    { source = "files/bins/cni-plugins/tap" },
+    { source = "files/bins/cni-plugins/tuning" },
+    { source = "files/bins/cni-plugins/vlan" },
+    { source = "files/bins/cni-plugins/vrf" },
+
+]
+
+systemd_units =[
+    { name = "setup-worker.service", source = "files/units/setup-worker.service", enabled = true },
+    { name = "kubelet.service", source = "files/units/kubelet.service", enabled = true },
+    { name = "kube-proxy.service", source = "files/units/kube-proxy.service", enabled = true },
+]
+
+links = [
+  # { dev_a = "dev01", int_a = 1, dev_b = "dev02", int_b = 1 },
+]

@@ -4,8 +4,14 @@ RequiresMountsFor=/media/container
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/bash -c 'cp /media/container/kube-apiserver /media/container/kube-controller-manager /media/container/kube-scheduler /media/container/kubectl /opt/bin/ && chmod -R a+x /opt/bin'
 RemainAfterExit=true
+
+# Setup binaries
+ExecStartPre=/usr/bin/bash -c 'cp /media/container/kube-apiserver /media/container/kube-controller-manager /media/container/kube-scheduler /media/container/kubectl /opt/bin/'
+ExecStartPre=/usr/bin/bash -c 'chmod -R a+x /opt/bin/'
+
+# Dummy ExecStart that exits immediately (required for Type=oneshot)
+ExecStart=/usr/bin/true
 
 [Install]
 WantedBy=multi-user.target

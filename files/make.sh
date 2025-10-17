@@ -126,7 +126,7 @@ for host in wrk01 wrk02 wrk03; do
   kubectl config set-cluster kubernetes-the-hard-way \
     --certificate-authority=certs/ca.crt \
     --embed-certs=true \
-    --server=https://server.kubernetes.local:6443 \
+    --server=https://ctl01.sherpa.lab.local:6443 \
     --kubeconfig=configs/${host}.kubeconfig
 
   kubectl config set-credentials system:node:${host} \
@@ -148,7 +148,7 @@ done
 kubectl config set-cluster kubernetes-the-hard-way \
   --certificate-authority=certs/ca.crt \
   --embed-certs=true \
-  --server=https://server.kubernetes.local:6443 \
+  --server=https://ctl01.sherpa.lab.local:6443 \
   --kubeconfig=configs/kube-proxy.kubeconfig
 
 kubectl config set-credentials system:kube-proxy \
@@ -169,7 +169,7 @@ kubectl config use-context default \
 kubectl config set-cluster kubernetes-the-hard-way \
   --certificate-authority=certs/ca.crt \
   --embed-certs=true \
-  --server=https://server.kubernetes.local:6443 \
+  --server=https://ctl01.sherpa.lab.local:6443 \
   --kubeconfig=configs/kube-controller-manager.kubeconfig
 
 kubectl config set-credentials system:kube-controller-manager \
@@ -190,7 +190,7 @@ kubectl config use-context default \
 kubectl config set-cluster kubernetes-the-hard-way \
   --certificate-authority=certs/ca.crt \
   --embed-certs=true \
-  --server=https://server.kubernetes.local:6443 \
+  --server=https://ctl01.sherpa.lab.local:6443 \
   --kubeconfig=configs/kube-scheduler.kubeconfig
 
 kubectl config set-credentials system:kube-scheduler \
@@ -228,7 +228,7 @@ kubectl config set-context default \
 kubectl config use-context default \
   --kubeconfig=configs/admin.kubeconfig
 
-"### Data Encryption ###"
+### Data Encryption ###
 echo "### Data Encryption ###";
 
 export ENCRYPTION_KEY=$(head -c 32 /dev/urandom | base64);
