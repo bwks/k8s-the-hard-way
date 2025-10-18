@@ -1,22 +1,31 @@
 name = "ubiquitous-dory"
 
-# [[devices]]
-# name = "utl01"
-# model = "flatcar_linux"
-# cpu_count = 2
-# memory = 4096
-# files = [
-#   { source = "files/ssh/k8s_ssh_key", destination = "/home/sherpa/.ssh/k8s_ssh_key", user = "sherpa", group = "sherpa", permissions = 444 },
-#   { source = "files/ssh/k8s_ssh_key.pub", destination = "/home/sherpa/.ssh/k8s_ssh_key.pub", user = "sherpa", group = "sherpa", permissions = 444 },
-#   { source = "files/ssh/k8s_ssh_config", destination = "/home/sherpa/.ssh/config", user = "sherpa", group = "sherpa", permissions = 444 },
-# ]
+[[devices]]
+name = "utl01"
+model = "flatcar_linux"
+cpu_count = 2
+memory = 4096
+text_files = [
+  { source = "files/ssh/k8s_ssh_key", destination = "/home/sherpa/.ssh/k8s_ssh_key", user = "sherpa", group = "sherpa", permissions = 444 },
+  { source = "files/ssh/k8s_ssh_key.pub", destination = "/home/sherpa/.ssh/k8s_ssh_key.pub", user = "sherpa", group = "sherpa", permissions = 444 },
+  { source = "files/ssh/k8s_ssh_config", destination = "/home/sherpa/.ssh/config", user = "sherpa", group = "sherpa", permissions = 444 },
+  { source = "files/certs/ca.crt", destination = "/home/sherpa/ca.crt", user = "sherpa", group = "sherpa", permissions = 444 },
+  { source = "files/certs/admin.crt", destination = "/home/sherpa/admin.crt", user = "sherpa", group = "sherpa", permissions = 444 },
+  { source = "files/certs/admin.key", destination = "/home/sherpa/admin.key", user = "sherpa", group = "sherpa", permissions = 400 },
+  { source = "files/configs/admin.kubeconfig", destination = "/home/sherpa/.kube/config", user = "sherpa", group = "sherpa", permissions = 444 },
+  ]
+binary_files = [
+    { source = "files/bins/client/kubectl" },
+]
+systemd_units =[
+    { name = "setup-kubectl.service", source = "files/units/setup-kubectl.service", enabled = true },
+]
 
 [[devices]]
 name = "ctl01"
 model = "flatcar_linux"
 cpu_count = 2
 memory = 4096
-
 text_files = [
   { source = "files/certs/ca.key", destination = "/var/lib/kubernetes/ca.key", user = "root", group = "root", permissions = 444 },
   { source = "files/certs/ca.crt", destination = "/var/lib/kubernetes/ca.crt", user = "root", group = "root", permissions = 444 },
@@ -38,9 +47,7 @@ text_files = [
   { source = "files/certs/service-accounts.key", destination = "/home/sherpa/service-accounts.key", user = "sherpa", group = "sherpa", permissions = 444 },
   { source = "files/configs/admin.kubeconfig", destination = "/home/sherpa/admin.kubeconfig", user = "sherpa", group = "sherpa", permissions = 444 },
   { source = "files/configs/kube-apiserver-to-kubelet.yaml", destination = "/home/sherpa/kube-apiserver-to-kubelet.yaml", user = "sherpa", group = "sherpa", permissions = 444 },
-
 ]
-
 binary_files = [
     { source = "files/bins/client/etcdctl" },
     { source = "files/bins/client/kubectl" },
@@ -49,7 +56,6 @@ binary_files = [
     { source = "files/bins/controller/kube-controller-manager" },
     { source = "files/bins/controller/kube-scheduler" },
 ]
-
 systemd_units =[
     { name = "setup-etcd.service", source = "files/units/setup-etcd.service", enabled = true },
     { name = "etcd.service", source = "files/units/etcd.service", enabled = true },
@@ -79,10 +85,8 @@ text_files = [
   { source = "files/configs/10-bridge-wrk01.conf", destination = "/etc/cni/net.d/10-bridge.conf", user = "root", group = "root", permissions = 444 },
   { source = "files/configs/99-loopback.conf", destination = "/etc/cni/net.d/99-loopback.conf", user = "root", group = "root", permissions = 444 },
   { source = "files/configs/kubelet-config.yaml", destination = "/var/lib/kubelet/kubelet-config.yaml", user = "root", group = "root", permissions = 444 },
-
   ]
 binary_files = [
-
     { source = "files/bins/worker/crictl" },
     { source = "files/bins/worker/kube-proxy" },
     { source = "files/bins/worker/kubelet" },
@@ -106,9 +110,7 @@ binary_files = [
     { source = "files/bins/cni-plugins/tuning" },
     { source = "files/bins/cni-plugins/vlan" },
     { source = "files/bins/cni-plugins/vrf" },
-
 ]
-
 systemd_units =[
     { name = "setup-worker.service", source = "files/units/setup-worker.service", enabled = true },
     { name = "kubelet.service", source = "files/units/kubelet.service", enabled = true },
@@ -161,7 +163,6 @@ binary_files = [
     { source = "files/bins/cni-plugins/tuning" },
     { source = "files/bins/cni-plugins/vlan" },
     { source = "files/bins/cni-plugins/vrf" },
-
 ]
 systemd_units =[
     { name = "setup-worker.service", source = "files/units/setup-worker.service", enabled = true },
@@ -188,10 +189,8 @@ text_files = [
   { source = "files/configs/10-bridge-wrk03.conf", destination = "/etc/cni/net.d/10-bridge.conf", user = "root", group = "root", permissions = 444 },
   { source = "files/configs/99-loopback.conf", destination = "/etc/cni/net.d/99-loopback.conf", user = "root", group = "root", permissions = 444 },
   { source = "files/configs/kubelet-config.yaml", destination = "/var/lib/kubelet/kubelet-config.yaml", user = "root", group = "root", permissions = 444 },
-
 ]
 binary_files = [
-
     { source = "files/bins/worker/crictl" },
     { source = "files/bins/worker/kube-proxy" },
     { source = "files/bins/worker/kubelet" },
@@ -217,7 +216,6 @@ binary_files = [
     { source = "files/bins/cni-plugins/vrf" },
 
 ]
-
 systemd_units =[
     { name = "setup-worker.service", source = "files/units/setup-worker.service", enabled = true },
     { name = "kubelet.service", source = "files/units/kubelet.service", enabled = true },

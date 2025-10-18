@@ -211,7 +211,7 @@ kubectl config use-context default \
 kubectl config set-cluster kubernetes-the-hard-way \
   --certificate-authority=certs/ca.crt \
   --embed-certs=true \
-  --server=https://127.0.0.1:6443 \
+  --server=https://ctl01.sherpa.lab.local:6443 \
   --kubeconfig=configs/admin.kubeconfig
 
 kubectl config set-credentials admin \
