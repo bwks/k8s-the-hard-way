@@ -57,6 +57,8 @@ binaries=(
 "https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.32.0/crictl-v1.32.0-linux-amd64.tar.gz"
 "https://github.com/containernetworking/plugins/releases/download/v1.6.2/cni-plugins-linux-amd64-v1.6.2.tgz"
 "https://github.com/etcd-io/etcd/releases/download/v3.6.0-rc.3/etcd-v3.6.0-rc.3-linux-amd64.tar.gz"
+"https://github.com/opencontainers/runc/releases/download/v1.3.0-rc.1/runc.amd64"
+"https://github.com/containerd/containerd/releases/download/v2.1.0-beta.0/containerd-2.1.0-beta.0-linux-amd64.tar.gz"
 )
 
 for url in "${binaries[@]}"; do
@@ -71,15 +73,20 @@ tar -xvf bins/cni-plugins-linux-amd64-v1.6.2.tgz -C bins/cni-plugins/
 tar -xvf bins/etcd-v3.6.0-rc.3-linux-amd64.tar.gz -C bins/ \
   --strip-components 1 etcd-v3.6.0-rc.3-linux-amd64/etcdctl \
   etcd-v3.6.0-rc.3-linux-amd64/etcd
+tar -xvf bins/containerd-2.1.0-beta.0-linux-amd64.tar.gz \
+  --strip-components 1 \
+  -C bins/worker/
 
 # Move files to bins directory
 mv bins/{etcdctl,kubectl} bins/client/
 mv bins/{etcd,kube-apiserver,kube-controller-manager,kube-scheduler} bins/controller/
 mv bins/{kubelet,kube-proxy} bins/worker/
+mv bins/runc.amd64 bins/worker/runc
 
 # Make binaries executable
 chmod +x bins/{client,cni-plugins,controller,worker}/*
 
+# Remove tar files
 rm bins/*.tar.gz;
 rm bins/*.tgz;
 

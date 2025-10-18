@@ -1,8 +1,8 @@
 [Unit]
 Description=Kubernetes Kube Proxy
 Documentation=https://github.com/kubernetes/kubernetes
-After=setup-worker.service
-Requires=setup-worker.service
+After=setup-worker.service containerd.service
+Requires=setup-worker.service containerd.service
 
 [Service]
 ExecStart=/opt/bin/kube-proxy \

@@ -1,8 +1,8 @@
 [Unit]
 Description=Kubernetes Kubelet
 Documentation=https://github.com/kubernetes/kubernetes
-After=setup-worker.service docker.service
-Requires=setup-worker.service docker.service
+After=setup-worker.service containerd.service
+Requires=setup-worker.service containerd.service
 
 [Service]
 ExecStart=/opt/bin/kubelet \

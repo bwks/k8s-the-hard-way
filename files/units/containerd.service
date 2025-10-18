@@ -2,10 +2,12 @@
 Description=containerd container runtime
 Documentation=https://containerd.io
 After=network.target
+After=setup-worker.service
+Requires=setup-worker.service
 
 [Service]
 ExecStartPre=/sbin/modprobe overlay
-ExecStart=/bin/containerd
+ExecStart=/usr/bin/containerd --config /etc/containerd/config.toml
 Restart=always
 RestartSec=5
 Delegate=yes
