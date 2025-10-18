@@ -16,9 +16,15 @@ text_files = [
   ]
 binary_files = [
     { source = "files/bins/client/kubectl" },
+    { source = "files/bins/client/helm" },
+    { source = "files/bins/client/cilium" },
 ]
 systemd_units =[
     { name = "setup-kubectl.service", source = "files/units/setup-kubectl.service", enabled = true },
+    { name = "setup-permissions.service", source = "files/units/setup-permissions.service", enabled = true },
+    { name = "setup-helm.service", source = "files/units/setup-helm.service", enabled = true },
+    { name = "setup-core-dns.service", source = "files/units/setup-core-dns.service", enabled = true },
+    { name = "setup-cilium.service", source = "files/units/setup-cilium.service", enabled = true },
 ]
 
 [[devices]]
@@ -63,7 +69,7 @@ systemd_units =[
     { name = "kube-apiserver.service", source = "files/units/kube-apiserver.service", enabled = true },
     { name = "kube-controller-manager.service", source = "files/units/kube-controller-manager.service", enabled = true },
     { name = "kube-scheduler.service", source = "files/units/kube-scheduler.service", enabled = true },
-    { name = "setup-routes.service", source = "files/units/setup-routes-ctl01.service", enabled = true },
+    # { name = "setup-routes.service", source = "files/units/setup-routes-ctl01.service", enabled = true },
 ]
 ssh_authorized_key_files = [{ source = "files/ssh/k8s_ssh_key.pub" }]
 
@@ -121,8 +127,8 @@ systemd_units =[
     { name = "containerd.service", source = "files/units/containerd.service", enabled = true },
     { name = "setup-worker.service", source = "files/units/setup-worker.service", enabled = true },
     { name = "kubelet.service", source = "files/units/kubelet.service", enabled = true },
-    { name = "kube-proxy.service", source = "files/units/kube-proxy.service", enabled = true },
-    { name = "setup-routes.service", source = "files/units/setup-routes-wrk01.service", enabled = true },
+    # { name = "kube-proxy.service", source = "files/units/kube-proxy.service", enabled = true },
+    # { name = "setup-routes.service", source = "files/units/setup-routes-wrk01.service", enabled = true },
 ]
 
 [[devices]]
@@ -182,8 +188,8 @@ systemd_units =[
     { name = "containerd.service", source = "files/units/containerd.service", enabled = true },
     { name = "setup-worker.service", source = "files/units/setup-worker.service", enabled = true },
     { name = "kubelet.service", source = "files/units/kubelet.service", enabled = true },
-    { name = "kube-proxy.service", source = "files/units/kube-proxy.service", enabled = true },
-    { name = "setup-routes.service", source = "files/units/setup-routes-wrk02.service", enabled = true },
+    # { name = "kube-proxy.service", source = "files/units/kube-proxy.service", enabled = true },
+    # { name = "setup-routes.service", source = "files/units/setup-routes-wrk02.service", enabled = true },
 ]
 
 [[devices]]
@@ -243,8 +249,8 @@ systemd_units =[
     { name = "containerd.service", source = "files/units/containerd.service", enabled = true },
     { name = "setup-worker.service", source = "files/units/setup-worker.service", enabled = true },
     { name = "kubelet.service", source = "files/units/kubelet.service", enabled = true },
-    { name = "kube-proxy.service", source = "files/units/kube-proxy.service", enabled = true },
-    { name = "setup-routes.service", source = "files/units/setup-routes-wrk03.service", enabled = true },
+    # { name = "kube-proxy.service", source = "files/units/kube-proxy.service", enabled = true },
+    # { name = "setup-routes.service", source = "files/units/setup-routes-wrk03.service", enabled = true },
 ]
 
 links = [

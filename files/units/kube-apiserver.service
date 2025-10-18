@@ -16,6 +16,7 @@ ExecStart=/opt/bin/kube-apiserver \
   --client-ca-file=/var/lib/kubernetes/ca.crt \
   --enable-admission-plugins=NamespaceLifecycle,NodeRestriction,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota \
   --etcd-servers=http://127.0.0.1:2379 \
+  --service-cluster-ip-range=10.32.0.0/24 \
   --event-ttl=1h \
   --encryption-provider-config=/var/lib/kubernetes/encryption-config.yaml \
   --kubelet-certificate-authority=/var/lib/kubernetes/ca.crt \
