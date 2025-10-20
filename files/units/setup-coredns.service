@@ -1,0 +1,43 @@
+[Unit]
+Description=Setup Core DNS
+After=setup-kubectl.service setup-helm.service setup-cilium.service
+Requires=setup-kubectl.service setup-helm.service setup-cilium.service
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+User=sherpa
+Environment=HELM_HOME=/home/sherpa/.local/share/helm
+Environment=XDG_CONFIG_HOME=/home/sherpa/.config
+Environment=XDG_CACHE_HOME=/home/sherpa/.cache
+Environment=XDG_DATA_HOME=/home/sherpa/.local/share
+Environment=HOME=/home/sherpa
+WorkingDirectory=/home/sherpa
+
+# Wait until Kubernetes API is ready
+ExecStartPre=/bin/bash -c '\
+  echo "Waiting for Kubernetes API to be ready..."; \
+  until curl -sfk https://ctl01.sherpa.lab.local:6443/healthz >/dev/null 2>&1; do \
+    echo "Kubernetes API not ready yet, retrying in 5s..."; \
+    sleep 5; \
+  done; \
+  echo "Kubernetes API is ready."'
+
+# Add the CoreDNS Helm repo under the sherpa user context
+ExecStartPre=/opt/bin/helm repo add coredns https://coredns.github.io/helm
+ExecStartPre=/opt/bin/helm repo update
+
+# Install CoreDNS chart with fixed ClusterIP
+ExecStart=/opt/bin/helm install coredns coredns/coredns \
+  --namespace kube-system \
+  --set service.name=kube-dns \
+  --set service.clusterIP=10.32.0.10 \
+  --set isClusterService=true \
+  --set replicaCount=2 \
+  --kubeconfig /home/sherpa/.kube/config
+
+
+[Install]
+WantedBy=multi-user.target

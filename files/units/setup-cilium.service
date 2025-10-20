@@ -1,0 +1,28 @@
+[Unit]
+Description=Setup Core DNS
+RequiresMountsFor=/media/container
+After=setup-kubectl.service setup-permissions.service
+Requires=setup-kubectl.service setup-permissions.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+
+# Setup binaries
+ExecStartPre=/usr/bin/bash -c 'cp /media/container/cilium /opt/bin/'
+ExecStartPre=/usr/bin/bash -c 'chmod -R a+x /opt/bin/'
+
+# Wait until Kubernetes API is ready
+ExecStartPre=/bin/bash -c '\
+  echo "Waiting for Kubernetes API to be ready..."; \
+  until curl -sfk https://ctl01.sherpa.lab.local:6443/healthz >/dev/null 2>&1; do \
+    echo "Kubernetes API not ready yet, retrying in 5s..."; \
+    sleep 5; \
+  done; \
+  echo "Kubernetes API is ready."'
+
+# Install Cilium
+ExecStart=/opt/bin/cilium install --kubeconfig=/home/sherpa/.kube/config
+
+[Install]
+WantedBy=multi-user.target

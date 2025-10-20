@@ -1,0 +1,22 @@
+[Unit]
+Description=Setup kubectl cli binary
+RequiresMountsFor=/media/container
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+
+# Setup binaries
+ExecStartPre=/usr/bin/bash -c 'mkdir -p /home/sherpa/.kube/'
+ExecStartPre=/usr/bin/bash -c 'chown sherpa:sherpa /home/sherpa/.kube/'
+ExecStartPre=/usr/bin/bash -c 'cp /media/container/kubectl /opt/bin/'
+ExecStartPre=/usr/bin/bash -c 'chmod -R a+x /opt/bin/'
+ExecStartPre=/usr/bin/bash -c "echo 'alias k=kubectl' >> /home/sherpa/.bashrc"
+ExecStartPre=/usr/bin/bash -c "echo 'source <(kubectl completion bash)' >> /home/sherpa/.bashrc"
+ExecStartPre=/usr/bin/bash -c "echo 'complete -F __start_kubectl k' >> /home/sherpa/.bashrc"
+
+# Dummy ExecStart that exits immediately (required for Type=oneshot)
+ExecStart=/usr/bin/true
+
+[Install]
+WantedBy=multi-user.target

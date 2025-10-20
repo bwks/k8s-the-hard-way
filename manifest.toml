@@ -23,10 +23,11 @@ systemd_units =[
     { name = "setup-kubectl.service", source = "files/units/setup-kubectl.service", enabled = true },
     { name = "setup-permissions.service", source = "files/units/setup-permissions.service", enabled = true },
     { name = "setup-helm.service", source = "files/units/setup-helm.service", enabled = true },
-    { name = "setup-core-dns.service", source = "files/units/setup-core-dns.service", enabled = true },
+    { name = "setup-coredns.service", source = "files/units/setup-coredns.service", enabled = true },
     { name = "setup-cilium.service", source = "files/units/setup-cilium.service", enabled = true },
+    { name = "setup-cilium-hubble.service", source = "files/units/setup-cilium-hubble.service", enabled = true },
+    { name = "setup-restart-coredns.service", source = "files/units/setup-restart-coredns.service", enabled = true },
 ]
-
 [[devices]]
 name = "ctl01"
 model = "flatcar_linux"
@@ -76,8 +77,8 @@ ssh_authorized_key_files = [{ source = "files/ssh/k8s_ssh_key.pub" }]
 [[devices]]
 name = "wrk01"
 model = "flatcar_linux"
-cpu_count = 2
-memory = 4096
+cpu_count = 4
+memory = 8192
 ssh_authorized_key_files = [{ source = "files/ssh/k8s_ssh_key.pub" }]
 text_files = [
   { source = "files/certs/wrk01.crt", destination = "/home/sherpa/wrk01.crt", user = "sherpa", group = "sherpa", permissions = 444 },
@@ -134,8 +135,8 @@ systemd_units =[
 [[devices]]
 name = "wrk02"
 model = "flatcar_linux"
-cpu_count = 2
-memory = 4096
+cpu_count = 4
+memory = 8192
 ssh_authorized_key_files = [{ source = "files/ssh/k8s_ssh_key.pub" }]
 text_files = [
   { source = "files/certs/wrk02.crt", destination = "/home/sherpa/wrk02.crt", user = "sherpa", group = "sherpa", permissions = 444 },
@@ -195,8 +196,8 @@ systemd_units =[
 [[devices]]
 name = "wrk03"
 model = "flatcar_linux"
-cpu_count = 2
-memory = 4096
+cpu_count = 4
+memory = 8192
 ssh_authorized_key_files = [{ source = "files/ssh/k8s_ssh_key.pub" }]
 text_files = [
   { source = "files/certs/wrk03.crt", destination = "/home/sherpa/wrk03.crt", user = "sherpa", group = "sherpa", permissions = 444 },

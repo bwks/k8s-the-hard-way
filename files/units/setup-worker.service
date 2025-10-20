@@ -1,0 +1,22 @@
+[Unit]
+After=local-fs.target
+RequiresMountsFor=/media/container
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+
+# Create required directories
+ExecStartPre=/usr/bin/mkdir -p /etc/cni/net.d /opt/cni/bin /var/lib/kubelet /var/lib/kube-proxy /var/lib/kubernetes /var/run/kubernetes
+
+# Setup binaries
+ExecStartPre=/usr/bin/bash -c 'cp /media/container/crictl /media/container/kube-proxy /media/container/kubelet /opt/bin/'
+ExecStartPre=/usr/bin/bash -c 'cp /media/container/bandwidth /media/container/bridge /media/container/dhcp /media/container/dummy /media/container/firewall /media/container/host-device /media/container/host-local /media/container/ipvlan /media/container/loopback /media/container/macvlan /media/container/portmap /media/container/ptp /media/container/sbr /media/container/static /media/container/tap /media/container/tuning /media/container/vlan /media/container/vrf /opt/cni/bin/'
+ExecStartPre=/usr/bin/bash -c 'chmod -R a+x /opt/bin/'
+ExecStartPre=/usr/bin/bash -c 'chmod -R a+x /opt/cni/bin/'
+
+# Dummy ExecStart that exits immediately (required for Type=oneshot)
+ExecStart=/usr/bin/true
+
+[Install]
+WantedBy=multi-user.target

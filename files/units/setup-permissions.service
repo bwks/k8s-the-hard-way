@@ -1,0 +1,27 @@
+[Unit]
+Description=Setup Permissions
+RequiresMountsFor=/media/container
+After=setup-kubectl.service
+Requires=setup-kubectl.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+
+# Wait until Kubernetes API is ready
+ExecStartPre=/bin/bash -c '\
+  echo "Waiting for Kubernetes API to be ready..."; \
+  until curl -sfk https://ctl01.sherpa.lab.local:6443/healthz >/dev/null 2>&1; do \
+    echo "Kubernetes API not ready yet, retrying in 5s..."; \
+    sleep 5; \
+  done; \
+  echo "Kubernetes API is ready."'
+
+# Set Permissions
+ExecStart=/opt/bin/kubectl --kubeconfig=/home/sherpa/.kube/config \
+    create clusterrolebinding apiserver-kubelet-api-admin \
+    --clusterrole system:kubelet-api-admin \
+    --user kubernetes
+
+[Install]
+WantedBy=multi-user.target
