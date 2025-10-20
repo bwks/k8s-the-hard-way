@@ -61,6 +61,7 @@ binaries=(
 "https://github.com/containerd/containerd/releases/download/v2.1.0-beta.0/containerd-2.1.0-beta.0-linux-amd64.tar.gz"
 "https://get.helm.sh/helm-v3.19.0-linux-amd64.tar.gz"
 "https://github.com/cilium/cilium-cli/releases/download/v0.18.6/cilium-linux-amd64.tar.gz"
+"https://github.com/cilium/hubble/releases/download/v1.18.0/hubble-linux-amd64.tar.gz"
 )
 
 for url in "${binaries[@]}"; do
@@ -80,6 +81,7 @@ tar -xvf bins/containerd-2.1.0-beta.0-linux-amd64.tar.gz \
   -C bins/worker/
 tar -xvf bins/helm-v3.19.0-linux-amd64.tar.gz -C bins/client
 tar -xvf bins/cilium-linux-amd64.tar.gz -C bins/client
+tar -xvf bins/hubble-linux-amd64.tar.gz -C bins/client
 
 # Move files to bins directory
 mv bins/{etcdctl,kubectl} bins/client/

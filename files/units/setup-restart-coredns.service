@@ -1,17 +1,18 @@
 [Unit]
 Description=Wait for Cilium to be ready, then restart CoreDNS
-After=setup-cilium.service
-Requires=setup-cilium.service
+After=setup-kubectl.service setup-coredns.service setup-cilium.service
+Requires=setup-kubectl.service setup-coredns.service setup-cilium.service
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash -c '\
-  set -e \
-  echo "Waiting for Cilium pods to be ready..." \
-  /opt/bin/kubectl --kubeconfig=/home/sherpa/.kube/config wait --for=condition=Ready -n kube-system -l k8s-app=cilium pod --timeout=300s \
-  echo "Restarting CoreDNS deployment..." \
-  /opt/bin/kubectl --kubeconfig=/home/sherpa/.kube/config delete pod -n kube-system -l k8s-app=coredns \
-'
+ExecStart=/bin/bash -c 'set -euo pipefail; \
+  echo "Waiting for Cilium..."; \
+  until /opt/bin/kubectl --kubeconfig=/home/sherpa/.kube/config wait --for=condition=Ready -n kube-system -l k8s-app=cilium pod --timeout=10m; do \
+    echo "Cilium not ready, retrying in 5s..."; \
+    sleep 5; \
+  done; \
+  echo "Restarting CoreDNS..."; \
+  /opt/bin/kubectl --kubeconfig=/home/sherpa/.kube/config delete pod -n kube-system -l k8s-app=coredns'
 
 [Install]
 WantedBy=multi-user.target

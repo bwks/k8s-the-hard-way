@@ -22,7 +22,10 @@ ExecStartPre=/bin/bash -c '\
   echo "Kubernetes API is ready."'
 
 # Install Cilium
-ExecStart=/opt/bin/cilium install --kubeconfig=/home/sherpa/.kube/config
+ExecStart=/opt/bin/cilium install --kubeconfig=/home/sherpa/.kube/config \
+    --set kubeProxyReplacement=true \
+    --set ingressController.enabled=true \
+    --set ingressController.loadbalancerMode=dedicated
 
 [Install]
 WantedBy=multi-user.target

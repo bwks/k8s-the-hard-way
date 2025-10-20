@@ -9,7 +9,7 @@ Type=oneshot
 RemainAfterExit=true
 
 # Setup binaries
-ExecStartPre=/usr/bin/bash -c 'cp /media/container/cilium /opt/bin/'
+ExecStartPre=/usr/bin/bash -c 'cp /media/container/hubble /opt/bin/'
 ExecStartPre=/usr/bin/bash -c 'chmod -R a+x /opt/bin/'
 
 # Install Cilium
